@@ -31,7 +31,6 @@ export class TaskController {
 
   static getTaskById = async (req: Request, res: Response) => {
     console.log(req.task.id)
-
     try {
       const task = await Task.findById(req.task.id)
         .populate({ path: 'completedBy.user', select: 'id name email' })
@@ -49,16 +48,6 @@ export class TaskController {
       req.task.description = req.body.description
       await req.task.save()
       res.send("Tarea Actualizada Correctamente")
-    } catch (error) {
-      res.status(500).json({ error: 'Hubo un error' })
-    }
-  }
-
-  static deleteTask = async (req: Request, res: Response) => {
-    try {
-      req.empresa.tasks = req.empresa.tasks.filter(task => task.toString() !== req.task.id.toString())
-      await Promise.allSettled([req.task.deleteOne(), req.empresa.save()])
-      res.send("Tarea Eliminada Correctamente")
     } catch (error) {
       res.status(500).json({ error: 'Hubo un error' })
     }
