@@ -4,6 +4,7 @@ import { IEmpresa } from './Empresa'
 export interface IUnidad extends Document {
   economico: string
   empresa: PopulatedDoc< IEmpresa & Document>
+  active: boolean
 }
 
 const UnidadSchema: Schema = new Schema({
@@ -15,7 +16,12 @@ const UnidadSchema: Schema = new Schema({
   empresa: {
     type: Types.ObjectId,
     ref: 'Empresa'
+  },
+  active: {
+    type: Boolean,
+    default: true
   }
+
 },{timestamps: true})
 
 
