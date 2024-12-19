@@ -104,13 +104,6 @@ router.put('/:empresaId/tasks/:taskId',
     TaskController.updateTask
 )
 
-router.delete('/:empresaId/tasks/:taskId',
-    hasAuthorization,
-    param('taskId').isMongoId().withMessage('ID no válido'),
-    handleInputErrors,
-    TaskController.deleteTask
-)
-
 router.post('/:empresaId/tasks/:taskId/status', 
     param('taskId').isMongoId().withMessage('ID no válido'),
     body('status')
