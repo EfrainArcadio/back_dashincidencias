@@ -53,10 +53,10 @@ export class EmpresaController {
         const error = new Error('Empresa no Encontrada')
         return res.status(404).json({ error: error.message })
       }
-      if (empresa.createdBy.toString() !== req.user.id.toString() ) {
-        const error = new Error('Acción no Valida')
-        return res.status(404).json({ error: error.message })
-      }
+      // if (empresa.createdBy.toString() !== req.user.id.toString() ) {
+      //   const error = new Error('Acción no Valida')
+      //   return res.status(404).json({ error: error.message })
+      // }
       res.json(empresa)
     } catch (error) {
       console.log(error)
@@ -82,14 +82,14 @@ export class EmpresaController {
     const { empresaId } = req.params
     try {
       const empresa = (await Empresa.findById(empresaId))
-      console.log(empresa)
+      // console.log(empresa)
       if (!empresa) {
         const error = new Error('Empresa no Encontrada')
         return res.status(404).json({ error: error.message })
       }
       const corredorIds = empresa.workSpace
-      const corredores = await Empresa.find({ _id: { $in: corredorIds } })
-      console.log(corredores)
+      const corredores = await Empresa.find({ _id: { $in: corredorIds } }).populate('tasks')
+      // console.log(corredores)
       res.json(corredores)
     } catch (error) {
       console.log(error)
