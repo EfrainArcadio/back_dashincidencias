@@ -8,7 +8,7 @@ export class UnidadController {
     const empresa = await Empresa.findById(empresaId) 
     const unidad  = new Unidad(req.body)
     unidad.empresa = req.params.empresaId
-    empresa.workSpace.push( unidad.id)
+    empresa.workSpace.push( unidad.id )
     try {
       await Promise.allSettled([unidad.save(),empresa.save()]) 
       res.send('Unidad Creada Correctamente')
@@ -41,5 +41,12 @@ export class UnidadController {
     } catch (error) {
       console.log(error)
     }
+  }
+  static deleteUnidad = async (req: Request, res: Response) => {
+    const { idUnidad } = req.params
+    const unidad = await Unidad.findById(idUnidad)
+    unidad.active = false
+    await unidad.save()
+    res.send('Unidad Eliminada')
   } 
 }

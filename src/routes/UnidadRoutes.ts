@@ -19,4 +19,6 @@ router.get('/corredor/:empresaId',UnidadController.getUnidadesByIdCorredor)
 
 router.get('/:idUnidad',UnidadController.getUnidadById)
 
-export default router
+router.put('/:idUnidad',UnidadController.deleteUnidad)
+
+export default router 
